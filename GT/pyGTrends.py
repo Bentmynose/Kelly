@@ -116,14 +116,14 @@ class pyGTrends( object ):
         for k, v in parm_list.iteritems():
             str_parm_list[k] = unicode(v).encode('utf-8')
 
-        print "parm_list : " + str(parm_list)
-        print "str_parm_list : " + str(str_parm_list)
+        #print "parm_list : " + str(parm_list)
+        #print "str_parm_list : " + str(str_parm_list)
         params = urllib.urlencode(str_parm_list).replace('+','%20') 
        
         print "get csv params = " +  params
         
         S_URL = self.url_download + params
-        print S_URL
+        #print S_URL
         self.Source_URL = S_URL       
         
         r = self.opener.open(S_URL)
@@ -220,11 +220,11 @@ class pyGTrends( object ):
     #                
     #    raise Exception("Could not find requested section")
 
-    def getData( self):
-
-        return self.raw_data
-
-    def writer( self, outputname = "report.csv" ) :
-        o = open( outputname, "wb" )
-        o.write( self.raw_data )
+#     def getData( self):
+# 
+#         return self.raw_data
+# 
+#     def writer( self, outputname = "report.csv" ) :
+#         o = open( outputname, "wb" )
+#         o.write( self.raw_data )
     

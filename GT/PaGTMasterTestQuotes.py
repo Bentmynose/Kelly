@@ -37,17 +37,17 @@ import re
 GIDPWFile = "T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\GIDPWFile.txt"
 
 #This is the location of the output files = Searchterm+GEOs.GTrends.csv
-data_location_library = "c:\\Users\\Pa\\Documents\\GoogleTrendsReports\\"
-data_location_library = "T:\\Dropbox\\Kelly\\GoogleTrendsData\\"
+#data_location_library = "c:\\Users\\Pa\\Documents\\GoogleTrendsReports\\"
+data_location_library = "T:\\Dropbox\\Kelly\\GoogleTrendsData\\GERMANY\\"
 
 #This is the name of the "Search Terms" Control File 
-Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\New_Search_Terms+HELP.txt'
+Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\New_Search_Terms+HILFE.txt'
 #Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\Search_Terms.txt'
 #Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\New_Search_Terms_test.txt'
 #This is the name of the "Base Search Terms" control File (Unused in this program)
 Geos_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\Base_Searchterm.txt'
 #This is the name of the "Geos_Multi" control File - it is used to develop the geos term of the search using multiple country codes
-Geos_Multi_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\GEOS_US_ONLY.txt'
+Geos_Multi_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\GEOS_GERMANY_ONLY.txt'
 
 print "terms defined"
 
@@ -89,7 +89,7 @@ def getGTData(search_query="Afganistan", date="all", geo="all", scale="1", posit
     URL_Search_Term = search_query.split('+')[0]   
     URL_Search_Term = str(URL_Search_Term.strip())
     #URL_Search_Term = URL_Search_Term[1:-1] #remove quotes from beginning and end
-    URL_Search_Term = URL_Search_Term[7:-1] #remove quotes from beginning and end - and the base term = "help"
+    URL_Search_Term = URL_Search_Term[8:-1] #remove quotes from beginning and end - and the base term = "help"
     
     geo = geo.rstrip()
     geo_term = geo
@@ -164,9 +164,11 @@ def getGTData(search_query="Afganistan", date="all", geo="all", scale="1", posit
 def getGoogleTrendData( search_query ="Italy", date="all", geo = ["all"], scale="1" ) :
     global gcount #gcount is the number of rows in the geoterms list
     gcount = 0
-    for geo_term in progressbar( geo, "Downloading: ", 40 ):
-        gcount = gcount + 1
-        getGTData(search_query, geo = geo_term)
+#     for geo_term in progressbar( geo, "Downloading: ", 40 ):
+#         gcount = gcount + 1
+#         getGTData(search_query, geo = geo_term)
+    geo_term="DE"
+    getGTData(search_query, geo = geo_term)
     time.sleep(1)  # Delay for x seconds    
     return True
 
@@ -260,7 +262,7 @@ if __name__=="__main__":
     i=0
     f=open(Geos_Multi_Control_File,'r')
     list_of_geos = list(f)
-    
+    print "lenght of GEOS list = ", len(list_of_geos)
     # print out list of geos for testing
     #for geo in list_of_geos:
     #    i+=1
