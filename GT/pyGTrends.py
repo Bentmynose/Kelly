@@ -35,6 +35,7 @@ class pyGTrends( object ):
     r.download_report(('pants', 'skirt'))
     d = DictReader(r.csv().split('\n'))
     """
+    # Raw urlencode for python - replaces + with %20
     
     def __init__( self, username, password ):
         """
@@ -107,20 +108,22 @@ class pyGTrends( object ):
             'q': ",".join( keywords ),                      
             'geo': geo_term,
             'export' : 1,
-            'cmpt' : 'geo'
+            'cmpt' : 'q'
+#            'cmpt' : 'geo'
         }
         #convert parm_list to str for urlencode processing (which requires str instead of unicode)
         str_parm_list = {}
         for k, v in parm_list.iteritems():
             str_parm_list[k] = unicode(v).encode('utf-8')
 
-        #print parm_list
-        params = urllib.urlencode(str_parm_list)
-         
-        #print "get csv params = " +  params
+        print "parm_list : " + str(parm_list)
+        print "str_parm_list : " + str(str_parm_list)
+        params = urllib.urlencode(str_parm_list).replace('+','%20') 
+       
+        print "get csv params = " +  params
         
         S_URL = self.url_download + params
-        #print S_URL
+        print S_URL
         self.Source_URL = S_URL       
         
         r = self.opener.open(S_URL)
@@ -130,7 +133,7 @@ class pyGTrends( object ):
             print e.code
         except urllib2.URLError, e:
             print e.args
-        #print r.info()
+        print r.info()
         
         # Make sure everything is working ;)
         if not r.info().has_key('Content-Disposition'):
