@@ -38,10 +38,10 @@ GIDPWFile = "T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\GIDPWFile.txt
 
 #This is the location of the output files = Searchterm+GEOs.GTrends.csv
 #data_location_library = "c:\\Users\\Pa\\Documents\\GoogleTrendsReports\\"
-data_location_library = "T:\\Dropbox\\Kelly\\GoogleTrendsData\\GERMANY\\"
+data_location_library = "T:\\Dropbox\\Kelly\\GoogleTrendsData\\JAPAN\\"
 
 #This is the name of the "Search Terms" Control File 
-Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\New_Search_Terms+HILFE.txt'
+Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\New_Search_Terms+JAPAN.txt'
 #Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\Search_Terms.txt'
 #Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\New_Search_Terms_test.txt'
 #This is the name of the "Base Search Terms" control File (Unused in this program)
@@ -87,10 +87,10 @@ def getGTData(search_query="Afganistan", date="all", geo="all", scale="1", posit
     search_query_term = search_query.rstrip()
     print "search_query_term = " + search_query_term
     URL_Search_Term = search_query.split('+')[0]   
-    URL_Search_Term = str(URL_Search_Term.strip())
+    URL_Search_Term = URL_Search_Term.strip()
     #URL_Search_Term = URL_Search_Term[1:-1] #remove quotes from beginning and end
-    URL_Search_Term = URL_Search_Term[8:-1] #remove quotes from beginning and end - and the base term = "help"
-    
+    URL_Search_Term = URL_Search_Term[5:-1] #remove quotes from beginning and end - and the base term = "help"
+    #URL_Search_Term = "JAPAN"
     geo = geo.rstrip()
     geo_term = geo
 
@@ -167,7 +167,7 @@ def getGoogleTrendData( search_query ="Italy", date="all", geo = ["all"], scale=
 #     for geo_term in progressbar( geo, "Downloading: ", 40 ):
 #         gcount = gcount + 1
 #         getGTData(search_query, geo = geo_term)
-    geo_term="DE"
+    geo_term="JP"
     getGTData(search_query, geo = geo_term)
     time.sleep(1)  # Delay for x seconds    
     return True
