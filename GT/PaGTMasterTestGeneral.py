@@ -56,13 +56,13 @@ from xlrd import open_workbook
 #LOCAL_DROPBOX_DIRECTORY = "T:\\Dropbox\\Kelly\\GoogleTrendsData"
 #MASTER_CONFIG_FILE = LOCAL_DROPBOX_DIRECTORY + "\\SearchControls\\MasterConfigFile_test.csv"
 
-MasterConfigFile = "T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\MasterConfigFile_test.xls"
+MasterConfigFile = "T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\MasterConfigFile_GREECE.xls"
 # read the Master Config File data into a dictionary of control terms
 wb = open_workbook(MasterConfigFile)
 
 Config_Dict = {}
 for s in wb.sheets():
-    print 'Master Config File = ',s.name
+    print 'Master Config File Worksheet = ',s.name
     for row in range(s.nrows):
         Key = s.cell(row,0).value
         Value = s.cell(row,1).value
@@ -70,13 +70,16 @@ for s in wb.sheets():
         
 GIDPWFile = Config_Dict['C_Root'] + Config_Dict['GIDPWFile']
 data_location_library = Config_Dict['D_Root']
-Search_Terms_Control_File = Config_Dict['C_Root'] + 'New_Search_Terms+' + Config_Dict['LOCATION'] + '.txt'
+Search_Terms_Control_File = Config_Dict['C_Root'] + 'New_Search_Terms_trunc.txt'
+Base_Term = Config_Dict['BASE_TERM']
+GEO_Term = Config_Dict['GEO']
 
 print "Google ID/PW File = " + GIDPWFile
 print "data location library = " + data_location_library
 print "Search_Terms_Control_File = " + Search_Terms_Control_File
-print "Baseline Term = ", Config_Dict['BASE_TERM']
+print "Baseline Term = ", Base_Term
 print "Location = ", Config_Dict['LOCATION']
+print "Geo Term = ", GEO_Term
 
 print "terms defined"
 
@@ -110,40 +113,29 @@ def progressbar(it, prefix = "", size = 60):
 
 def getGTData(search_query="Afganistan", date="all", geo="all", scale="1", position = "end" ) :
     
-    #search_query_term = 'q='+search_query.rstrip()
-    #geo_term = 'geo='+geo.rstrip()
-        
     search_query_term = search_query.rstrip()
-    print "search_query_term = " + search_query_term
+    print "search_query_term (unaltered) = " + search_query_term
+    #concatenate the base_term to the front of the search query term
+    search_query_term = Base_Term + ", " + search_query_term
+    print "search_query_term (altered) = " + search_query_term
+    
     URL_Search_Term = search_query.split('+')[0]   
     URL_Search_Term = URL_Search_Term.strip()
     # remove 
-    URL_Search_Term = URL_Search_Term[5:-1] #remove quotes from beginning and end - and the base term eg "help"
+    URL_Search_Term = URL_Search_Term[1:-1] #remove quotes from beginning and end - and the base term eg "help"
     #URL_Search_Term = "JAPAN"
-    geo = geo.rstrip()
-    geo_term = geo
-
-    #country_name = Geo_Dictionary(geo)
-    
-    #print "country_name = " + country_name
+    #geo = geo.rstrip()
+    #geo_term = geo
+   
     print "URL_Search_Term = " + URL_Search_Term
-    #print "geo = " + geo
-    print "geo_term = " + geo_term
-    #geo_name = Geo_Dictionary[geo]
-#     print "geo name = " + geo_name
-  
-    #search_base_term = Geo_Baseterm_Dictionary[URL_Search_Term]
-    #there is no base term in this version of code
-    #print "search_base_term = " + search_base_term    
-        
+    print "geo_term = " + GEO_Term    
+       
     #connector.get_csv((search_query_term,search_base_term),geo_term)
-    connector.get_csv((search_query_term),geo_term)
+    connector.get_csv((search_query_term), GEO_Term)
     connector.raw_data.split('\n')
     
     data = connector.csv( section='Main' ).split('\n')
     
-    #print "csv data :::"
-    #print data
     # now read back in the output of connector.csv in data
     csv_reader = csv.reader( data ) 
    
@@ -193,11 +185,7 @@ def getGTData(search_query="Afganistan", date="all", geo="all", scale="1", posit
 def getGoogleTrendData( search_query ="Italy", date="all", geo = ["all"], scale="1" ) :
     global gcount #gcount is the number of rows in the geoterms list
     gcount = 0
-#     for geo_term in progressbar( geo, "Downloading: ", 40 ):
-#         gcount = gcount + 1
-#         getGTData(search_query, geo = geo_term)
-    geo_term="JP"
-    getGTData(search_query, geo = geo_term)
+    getGTData(search_query, geo = "JP")
     time.sleep(1)  # Delay for x seconds    
     return True
 
@@ -255,18 +243,7 @@ if __name__=="__main__":
     list_of_Search_Terms = list(f)
     for Search_Term in list_of_Search_Terms:
         i+=1
-        print "(" + str(i) + ") " + Search_Term  
-    sys.exit()   
-         
-    # read control file to get list of geos version 3 (multiple geos per query)
-    i=0
-    f=open(Geos_Multi_Control_File,'r')
-    list_of_geos = list(f)
-    print "length of GEOS list = ", len(list_of_geos)
-    # print out list of geos for testing
-    #for geo in list_of_geos:
-    #    i+=1
-    #    print "(" + str(i) + ") " + geo      
+        print "(" + str(i) + ") " + Search_Term          
     
     # sign on to google
     connector = pyGTrends( google_username, google_password )
@@ -274,5 +251,5 @@ if __name__=="__main__":
     #Get Trend data for each line in Search Terms control File - iterating over the GEOs control file lines
     for Search_Term in list_of_Search_Terms :
         #if getGoogleTrendData( search_query = Search_Term, geo = Geo_Dictionary.keys()) :
-        if getGoogleTrendData( search_query = Search_Term, geo = list_of_geos) :
+        if getGoogleTrendData( search_query = Search_Term, geo = ['xx']) :
             print "Google Trend Data processing complete"       
