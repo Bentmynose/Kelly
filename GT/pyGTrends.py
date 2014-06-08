@@ -188,43 +188,4 @@ class pyGTrends( object ):
             segments[i] = ''.join(start)
         #print "segment 0 = " + segments[0]   	
         return segments[0]
-        
-#         for s in segments:
-#             print "s = " + s
-#             if s.partition(',')[0] in section:
-#                 if as_list:
-#                     return [line for line in csv.reader(s.split('\n'))]
-#                 else:
-#                     return s
-#                 
-        #logging.error("Could not find requested section")            
-        #raise Exception("Could not find requested section")
 
-    #def csv(self, section="main", as_list=False):
-    #    """
-    #    Returns a CSV of a specific segment of the data.
-    #    Available segments include Main, Language, City and Region.
-    #    """
-    #    if section == "main":
-    #        section = ("Week","Year","Day","Month")
-    #    else:
-    #        section = (section,)
-    #        
-    #    segments = self.raw_data.split('\n\n\n')
-    #    for s in segments:
-    #        if s.partition(',')[0] in section:
-    #            if as_list:
-    #                return [line for line in csv.reader(s.split('\n'))]
-    #            else:
-    #                return s
-    #                
-    #    raise Exception("Could not find requested section")
-
-#     def getData( self):
-# 
-#         return self.raw_data
-# 
-#     def writer( self, outputname = "report.csv" ) :
-#         o = open( outputname, "wb" )
-#         o.write( self.raw_data )
-    
