@@ -38,10 +38,10 @@ GIDPWFile = "T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\GIDPWFile.txt
 
 #This is the location of the output files = Searchterm+GEOs.GTrends.csv
 #data_location_library = "c:\\Users\\Pa\\Documents\\GoogleTrendsReports\\"
-data_location_library = "T:\\Dropbox\\Kelly\\GoogleTrendsData\\JAPAN\\"
+data_location_library = "T:\\Dropbox\\Kelly\\GoogleTrendsData\\BRAZIL"
 
 #This is the name of the "Search Terms" Control File 
-Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\New_Search_Terms+JAPAN.txt'
+Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\New_Search_Terms+BRAZIL.txt'
 #Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\Search_Terms.txt'
 #Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\New_Search_Terms_test.txt'
 #This is the name of the "Base Search Terms" control File (Unused in this program)
@@ -89,7 +89,8 @@ def getGTData(search_query="Afganistan", date="all", geo="all", scale="1", posit
     URL_Search_Term = search_query.split('+')[0]   
     URL_Search_Term = URL_Search_Term.strip()
     #URL_Search_Term = URL_Search_Term[1:-1] #remove quotes from beginning and end
-    URL_Search_Term = URL_Search_Term[5:-1] #remove quotes from beginning and end - and the base term = "help"
+    #the amount that needs to be trimmed from the front is length of help term + 3
+    URL_Search_Term = URL_Search_Term[8:-1] #remove quotes from beginning and end - and the base term = "help"
     #URL_Search_Term = "JAPAN"
     geo = geo.rstrip()
     geo_term = geo
@@ -167,7 +168,7 @@ def getGoogleTrendData( search_query ="Italy", date="all", geo = ["all"], scale=
 #     for geo_term in progressbar( geo, "Downloading: ", 40 ):
 #         gcount = gcount + 1
 #         getGTData(search_query, geo = geo_term)
-    geo_term="JP"
+    geo_term="BR"
     getGTData(search_query, geo = geo_term)
     time.sleep(1)  # Delay for x seconds    
     return True
@@ -262,7 +263,7 @@ if __name__=="__main__":
     i=0
     f=open(Geos_Multi_Control_File,'r')
     list_of_geos = list(f)
-    print "lenght of GEOS list = ", len(list_of_geos)
+    print "length of GEOS list = ", len(list_of_geos)
     # print out list of geos for testing
     #for geo in list_of_geos:
     #    i+=1
