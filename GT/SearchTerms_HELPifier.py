@@ -7,13 +7,14 @@ Created on Jun 2, 2014
 import codecs
 #This is the name of the "Search Terms" Control File 
 Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\New_Search_Terms_trunc.txt'
-New_Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\New_Search_Terms+JAPAN.txt'
+New_Search_Terms_Control_File = 'T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\New_Search_Terms+ITALY.txt'
 
 i=0
 f=codecs.open(Search_Terms_Control_File,'r', encoding='utf-16')
 o=codecs.open(New_Search_Terms_Control_File, 'w', encoding='utf-16')
 # HELP_Term will be added as base term each Search Term Row
-HELP_Term = u'手助け'
+#HELP_Term = u'助け'
+HELP_Term = u'search'
 list_of_Search_Terms = list(f)
 for Search_Term in list_of_Search_Terms:
     i+=1
@@ -22,5 +23,5 @@ for Search_Term in list_of_Search_Terms:
     #New_Search_Term = New_Search_Term.rstrip()
     print "output search term = (" + str(i) + ") " + New_Search_Term
     o.write(New_Search_Term)
-    o.write(u"\r\n")
+    #o.write(u"\r\n")
 o.close()
