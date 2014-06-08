@@ -36,7 +36,7 @@ import csv, time, sys, codecs, re
 from xlrd import open_workbook
 
 
-MasterConfigFile = "T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\MasterConfigFile_MEXICO.xls"
+MasterConfigFile = "T:\\Dropbox\\Kelly\\GoogleTrendsData\\SearchControls\\MasterConfigFile_GREECE.xls"
 # read the Master Config File data into a dictionary of control terms
 wb = open_workbook(MasterConfigFile)
 
@@ -49,8 +49,8 @@ for s in wb.sheets():
         Config_Dict[Key] = Value
         
 GIDPWFile = Config_Dict['C_Root'] + Config_Dict['GIDPWFile']
-data_location_library = Config_Dict['D_Root']
-Search_Terms_Control_File = Config_Dict['C_Root'] + 'New_Search_Terms_trunc.txt'
+data_location_library = Config_Dict['L_Root'] + Config_Dict['D_Root']
+Search_Terms_Control_File = Config_Dict['L_Root'] + Config_Dict['C_Root'] + 'New_Search_Terms_trunc.txt'
 Base_Term = Config_Dict['BASE_TERM'].rstrip()
 GEO_Term = Config_Dict['GEO'].rstrip()
 
@@ -62,7 +62,7 @@ print "Location = ", Config_Dict['LOCATION']
 print "Geo Term = ", GEO_Term
 
 print "terms defined"
-
+sys.exit()
 def read_csv_data( data ):
     """
         Reads CSV from given path and Return list of dict with Mapping
